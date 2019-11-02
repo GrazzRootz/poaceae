@@ -8,6 +8,8 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import PersonIcon from "@material-ui/icons/Person";
 import Badge from "@material-ui/core/Badge";
+import Container from "@material-ui/core/Container";
+import GoogleMapReact from "google-map-react";
 
 const areaGeofence = [
   [53.600548, -2.318539],
@@ -23,15 +25,16 @@ const styles = makeStyles({
   h4: {
     padding: "16px 0 8px 0"
   },
-  gridrows: {
+  gardenBlock: {
     "grid-column": "4 / span 6",
     display: "grid",
     "grid-template-rows": "repeat(7, 1fr)",
     "grid-row-gap": "8px",
     padding: 8,
     marginTop: 16,
-    backgroundColor: "#FFF"
-  }
+  },
+  titleBlock: { gridColumn: "1 / span 2", gridRow: "1" },
+  mapContainer: { padding: '16px 0', gridColumn: "4 / span 6", height: 300 }
 });
 
 const gardens = [
@@ -131,7 +134,13 @@ const Home = () => {
         }
       `}</style>
       <div className="gardens">
-        <div className="desc">
+        <Container className={classnames.mapContainer}>
+          <GoogleMapReact
+            defaultCenter={[53.595841295722394, -2.317452947789434]}
+            defaultZoom={15}
+          ></GoogleMapReact>
+        </Container>
+        <div className={classnames.titleBlock}>
           <Typography variant="h4" className={classnames.h4}>
             Walshaw Community Gardens
           </Typography>
@@ -139,7 +148,7 @@ const Home = () => {
             Here you can see where your community spends their time.
           </Typography>
         </div>
-        <Box className={classnames.gridrows}>
+        <Box className={classnames.gardenBlock}>
           {gardens.map(g => (
             <Card key={g.id}>
               <CardContent>
